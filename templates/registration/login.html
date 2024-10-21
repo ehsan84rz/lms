@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% block page_title %}
+Login
+{% endblock %}
+
+
+{% block content%}
+<form style="margin: 100px 300px;" method="POST">
+    {% csrf_token %}
+    <label for="username">Nat ID:</label>
+    <input id="username" name="username" type="text" placeholder="Nat ID">
+    <br><br>
+    <label for="password">Password:</label>
+    <input id="password" name="password" type="password" placeholder="password">
+    <br><br>
+    <label for="academic_session">Select Session:</label>
+    <select name="academic_session" id="academic_session">
+    {% for academic_session in academic_sessions %}
+        <option value="{{ academic_session.year }}">{{ academic_session.year }}</option>
+    {% endfor %}
+    </select>
+    <button style="margin-left: 100px; padding: 5px;" type="submit">Login</button>
+</form>
+{% endblock %}

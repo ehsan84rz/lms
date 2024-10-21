@@ -1,0 +1,49 @@
+{% extends '_base.html' %}
+
+{% load jalali_tags %}
+
+{% block page_title %}
+    Assignment {{ assignment.title }}
+{% endblock %}
+{% block content %}
+    <h2>{{ assignment.title }} - {{ assignment.assignment_datetime }}</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        {% for form in formset.forms %}
+            {{ form.student_id }}
+            <p><label for="{{ form.prefix }}-student_name">Student:</label>
+                {{ form.student_name }}</p>
+            <p><label for="{{ form.prefix }}-file">File:</label>
+                {% if form.file.value == '' %}
+                    No file
+                {% else %}
+                    <a href="{{ form.file.value }}">
+                        <button>Download</button>
+                    </a>
+                {% endif %}</p>
+            <p><label for="{{ form.prefix }}-Note">Note:</label>
+                {{ form.note }}</p>
+            <p><label for="{{ form.prefix }}-reason">Reason:</label>
+                {{ form.reason }}</p>
+            <p><label for="{{ form.prefix }}-status">Status:</label>
+                {{ form.status }}</p>
+            <hr></hr>
+        {% endfor %}
+
+        <button type="submit">Save</button>
+    </form>
+
+    <h3>Students:</h3>
+    <ul>
+        {% for student in students %}
+            <li>
+                {{ student.name }}
+                - File: {{ student.assignmentrecord.file.url }}
+                - Status: {{ student.assignmentrecord.get_status_display }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

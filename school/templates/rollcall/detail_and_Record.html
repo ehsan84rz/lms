@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+RollCall {{ roll_call.name }}
+{% endblock %}
+{% block content %}
+<h1>{{ roll_call.name }} | Class: {{ roll_call.current_class }}</h1>
+<form method="post" action="{% url 'rollcall_detail' roll_call.id %}">
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% for form in formset %}
+      {{ form }}
+{#      {{ form.student }}#}
+{#      {{ form.student_username }}#}
+{#      {{ form.obtained_score }}#}
+
+{#    <input type="text" name="{{ form.prefix }}-student_name" disabled value="{{ form.student_name.value }}" id="id_{{ form.prefix }}-student_name">#}
+{#    <input type="number" name="{{ form.prefix }}-obtained_score" value="{{ form.obtained_score.value }}" id="id_{{ form.prefix }}-obtained_score">#}
+{#    {{ form.obtained_score }}#}
+
+      <br>    <br>
+  {% endfor %}
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

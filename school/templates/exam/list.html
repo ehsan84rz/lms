@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% block page_title %}
+Exams
+{% endblock %}
+{% block content %}
+{% if exams.exists %}
+    {% for exam in exams %}
+        <h1>{{ exam.name }}</h1>
+        <h3>From: {{ exam.exam_class }}</h3>
+    {% endfor %}
+{% else %}
+    <h1>There are no created Exams</h1>
+{% endif %}
+
+{% endblock %}

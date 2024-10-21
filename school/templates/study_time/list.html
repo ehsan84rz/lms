@@ -1,0 +1,140 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block page_title %}
+    StudyTime
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/study_times.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>زمان مطالعه</h2>
+    </div>
+    {#  <table class="table table-striped">#}
+    {#    <thead>#}
+    {#      <tr>#}
+    {#        <th>Lesson</th>#}
+    {#        {% for day in days_of_week %}#}
+    {#          <th>{{ day }}</th>#}
+    {#        {% endfor %}#}
+    {#        <th>Total Time</th>#}
+    {#      </tr>#}
+    {#    </thead>#}
+    {#    <tbody>#}
+    {#      {% for lesson_id, data in lesson_data.items %}#}
+    {#        <tr>#}
+    {#          <td>{{ data.lesson }}</td>#}
+    {#          {% for time in data.study_times %}#}
+    {#            <td>{{ time }}</td>#}
+    {#          {% endfor %}#}
+    {#          <td>{{ data.total_time }}</td>#}
+    {#        </tr>#}
+    {#      {% endfor %}#}
+    {#    </tbody>#}
+    {#  </table>#}
+    <table class="table table-bordered">
+        <thead>
+        <tr class="first-column-bg">
+            <th style="background: #4e8484">درس</th>
+            <th class="table-days-bg">شنبه</th>
+            <th class="table-days-bg">یک‌شنبه</th>
+            <th class="table-days-bg">دوشنبه</th>
+            <th class="table-days-bg">سه‌شنبه</th>
+            <th class="table-days-bg">چهارشنبه</th>
+            <th class="table-days-bg">پنج‌شنبه</th>
+            <th class="table-days-bg">جمعه</th>
+            <th style="background: #4e8484">جمع ساعات</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson_id, data in lesson_data.items %}
+            <tr class="table-td-bg">
+                <td>{{ data.lesson.name }}</td>
+                {% for study_time in data.study_times %}
+                    <td class="table-study-time-bg">
+                        <button style="margin: 0; padding: 0; border: 0; background-color: transparent;" type="button"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">{{ study_time }}</button>
+                    </td>
+                {% endfor %}
+                <td>{{ data.total_time }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {#    <!-- Button trigger modal -->#}
+    {#    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
+    {#        Launch demo modal#}
+    {#    </button>#}
+    {##}
+    {#    <!-- Modal -->#}
+    {#    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#        <div class="modal-dialog">#}
+    {#            <div class="modal-content">#}
+    {#                <div class="modal-header">#}
+    {#                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>#}
+    {#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    ...#}
+    {#                </div>#}
+    {#                <div class="modal-footer">#}
+    {#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+    {#                    <button type="button" class="btn btn-primary">Save changes</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    {#<!-- Modal -->#}
+    {#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+    {#  <div class="modal-dialog">#}
+    {#    <div class="modal-content">#}
+    {#      <div class="modal-header">#}
+    {#        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>#}
+    {#        <button style="margin-left: 0" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+    {#      </div>#}
+    {#      <div class="modal-body">#}
+    {#        ...#}
+    {#      </div>#}
+    {#      <div class="modal-footer">#}
+    {#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+    {#        <button type="button" class="btn btn-primary">Save changes</button>#}
+    {#      </div>#}
+    {#    </div>#}
+    {#  </div>#}
+    {#</div>#}
+
+    <button hx-get="{% url 'test' %}" hx-target="#myModal" hx-swap="innerHTML" hx-swap-oob="true" data-bs-toggle="modal" data-bs-target="#myModal">
+        Open Modal
+    </button>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Modal Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-content">
+                    <!-- Content will be replaced here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

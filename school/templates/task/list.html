@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+
+{% load jalali_tags %}
+{% load persian_translation_tags %}
+
+{% block page_title %}
+    Task {{ class.name }}
+{% endblock %}
+{% block content %}
+
+    {#    <h1>Monday</h1>#}
+    {#    <h1>Tuesday</h1>#}
+    {#    <h1>Wednesday</h1>#}
+    {#    <h1>Thursday</h1>#}
+    {#    <h1>Friday</h1>#}
+    {#    <h1>Saturday</h1>#}
+    {#    <h1>Sunday</h1>#}
+
+  <h2>Task List for {{ class.name }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+      {{ form.media }}
+    <button type="submit" id="form-submit">Add Task</button>
+  </form>
+
+  {% for day_name, tasks_list in tasks_by_weekday.items %}
+    <h3>{{ day_name }}</h3>
+    <ul>
+      {% for task in tasks_list %}
+        <li>{{ task.title }} </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+  {% for task in tasks %}
+    <h3>{{ task.task_date }}</h3>
+    <ul>
+      {% for task in tasks_list %}
+        <li>{{ task.title }} </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+
+
+{% endblock %}

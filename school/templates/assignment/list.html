@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% load jalali_tags %}
+
+{% block page_title %}
+Assignments
+{% endblock %}
+{% block content %}
+{% if assignments.exists %}
+    {% for assignment in assignments %}
+        <h1 style="display: inline;">{{ assignment.title }}</h1>
+        <a  style="display: inline;" href="{% url 'assignment_detail' assignment.id %}">
+            <button>Detail</button>
+         </a>
+    {% endfor %}
+{% else %}
+    <h1>There are no Assignments</h1>
+{% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.media }}
+        <button>Send</button>
+    </form>
+{% endblock %}

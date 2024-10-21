@@ -1,0 +1,28 @@
+.first-column-bg {
+    background-color: #f5f533; /* Set your desired background color */
+}
+/* Boxes */
+.table-td-bg:nth-child(odd) > td{
+    background: #a6dcdc;
+}
+.table-td-bg:nth-child(even) > td{
+    background: #b7eded;
+}
+.table-days-bg{
+    background: #5bc4a5 !important;
+}
+.table-td-bg:nth-child(even) > .table-study-time-bg{
+    background: #dfdfdf !important;
+}
+.table-td-bg:nth-child(odd) > .table-study-time-bg{
+    background: #f8f8f8 !important;
+}
+table.table-bordered td, table.table-bordered th {
+    border: 2px solid #ddd;
+    text-align: center; /* Center text */
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+table.table-bordered td:hover, table.table-bordered th:hover {
+    background-color: #f0f0f0; /* Set your desired hover background color */
+}

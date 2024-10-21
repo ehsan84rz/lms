@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% block page_title %}
+RollCalls
+{% endblock %}
+{% block content %}
+{% if roll_calls %}
+    {% for roll_call in roll_calls %}
+        <h1>{{ roll_call.name }}</h1>
+        <a href="{% url 'rollcall_detail' roll_call.id %}">
+            <button>More info...</button>
+        </a>
+    {% endfor %}
+
+{% else %}
+    <h1>No RollCall!</h1>
+{% endif %}
+
+{% endblock %}

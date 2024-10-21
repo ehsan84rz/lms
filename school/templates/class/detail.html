@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% block page_title %}
+Class {{ class.name }}
+{% endblock %}
+
+{% block content %}
+<h1>Class: {{ class_instance.name }}</h1>
+<h2>Students in Class:</h2>
+<ul>
+    {% if students_in_class.count == 0 %}
+    <h3>No students</h3>
+    {% else %}
+    {% for student in students_in_class %}
+        <li>{{ student.user.username }}: {{ student.user.get_full_name }}</li>
+    {% endfor %}
+    {% endif %}
+</ul>
+
+<form method="post" action="{% url 'class_add_student' class_instance.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Students to Class</button>
+</form>
+
+<h2>Teachers in Class:</h2>
+<ul>
+    {% if assigned_teachers_in_class.count == 0 %}
+    <h3>No teachers</h3>
+    {% else %}
+    {% for row in assigned_teachers_in_class %}
+        <li>{{ row.teacher.user.username }}: {{ row.teacher.user.get_full_name }} |
+            {% for lesson in row.teacher.lessons.all %}
+                {{ lesson.name }},
+            {% endfor %}
+        </li>
+    {% endfor %}
+    {% endif %}
+</ul>
+
+<form method="post" action="{% url 'class_add_teacher' class_instance.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Teachers to Class</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% block page_title %}
+Classes
+{% endblock %}
+{% block content %}
+{% if classes.exists %}
+    {% for class in classes %}
+        <h1 style="display: inline;">{{ class.name }}</h1>
+        <a  style="display: inline;" href="{% url 'class_detail' class.id %}">
+            <button>Detail</button>
+         </a>
+    {% endfor %}
+{% else %}
+    <h1>There are no Classes</h1>
+{% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Send</button>
+    </form>
+{% endblock %}
